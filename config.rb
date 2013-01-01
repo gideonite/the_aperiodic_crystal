@@ -2,10 +2,10 @@
 project_type = :stand_alone
 
 # Publishing paths
-http_path = "/"
-http_images_path = "/images"
-http_fonts_path = "/fonts"
-css_dir = "public/stylesheets"
+http_path = "/aperiodic_crystal"
+http_images_path = "/aperiodic_crystal/images"
+http_fonts_path = "/aperiodic_crystal/fonts"
+css_dir = "public/aperiodic_crystal/stylesheets"
 
 # Local development paths
 sass_dir = "sass"
