@@ -1,31 +1,61 @@
 ---
 layout: post
-title: "Two Weeks Two Lessons: on the road to oncoprint land"
+title: "d3 Teaches You"
 date: 2012-11-15 23:17
 comments: true
 categories: d3, data visualization
 ---
 
-I'm not the only one who loves the [d3js library](http://d3js.org/).  Do any
-google search on the library and you will find countless accolades.
+So it's been a while since my first and only post.  This one has been in the
+works for far too long.  So long in fact, that I think that I've actually
+forgotton many of the details that originally inspired me. On the upside I've
+had a chance to think more deeply on some of the more interesting aspects of
+this and may have something more general and interesting to say.  We'll just
+have to see how it goes!
 
-Recently, I had the pleasure of delving into d3 as part of my work at
-[cBio](www.cbio.mskcc.org) to (re)create our trademark "oncoprint"
-visualization for the [cBio Cancer Genomics Portal](http://www.cbioportal.org).
-Previously, the visualization had been rendered "manually" using
-[Raphael](http://raphaeljs.com/).  Thinking back to this older implementation,
-it's hard to express how beautiful and well-thought-out the abstractions are in
-d3.  It does a great job of abstracting precisely the things that should be
-abstracted.
+First of all there's the [d3js library](http://d3js.org/) that everyone seems
+to love.  D3 is a visualization library for the browser with a very simple (and
+therefore brilliant) design principle: data gets bound to DOM elements which
+then get instructions on how to be rendered based on whether the data has
+already been rendered, is changing the way it is being rendered, or are being
+removed.  D3 does a great job of creating the proper abstractions for making
+data visualizations and as a result, teaches you to think about data and
+visualization simply and clearly.
 
-Since this is an important part of the cBioPortal, I went through the trouble
-of implementing the oncoprint in a number of different ways.  I started with
-the data structure that was already in place (actually I don't really remember
-what the data structure was anymore, it was *something* like this):
+Side Note:, while riding the subway the other day, I thought of this
+commutative diagram for explaining d3's model of data visualization.
+Commutative diagrams are oone of the ways that mathematicians express their
+ideas.  An equation, like \\(2x = 5\\), is a succinct way of expressing
+equality. A commutative diagram is a succinct way of expressing equality
+between function compositions (composing functions just means taking the output
+of one function and putting it into another function in a particular order).
+So anyway, here's the picture:
 
-I'll include an actual example because I think that the data is the most
-interesting thing about my work, and it's cool to see it as it is in real life
-instead of an abstraction.
+\\[
+\begin{array}{ccccccccc}
+data & \xrightarrow{\sim} & DOM \newline
+\downarrow{\Delta} & & \downarrow{\Delta} \newline
+data & \xrightarrow{\sim} & DOM
+\end{array}
+\\]
+
+The data and the DOM should always share the same structure (represented by
+\\(\sim\\), ["twiddle"](http://en.wikipedia.org/wiki/Tilde#Mathematics)).  When
+the data changes (Delta, \\( \Delta \\), for difference or change), perhaps
+because the data is coming from some source in real time, the DOM should change
+accordingly.
+
+Anyway, I recently had the pleasure of using d3 at work to (re)create one of
+our data visualizations called *OncoPrint*.  An OncoPrint is just the overlay
+of a couple matrices where the data is represented as certain basic glyphs like
+rectangles or triangles.  What it gives you is a concise summary of multiple
+datatypes across a cohort.  You can read more about them
+[here](http://www.cbioportal.org/public-portal/faq.jsp#what-are-oncoprints).
+
+OncoPrints are an important part of the cBioPortal, so I went through the
+trouble of implementing them in a number of different ways.  I started with a
+JSON structure that was already in place (actually I don't really remember what
+the data structure was anymore, but it was something like this):
 
     lung: {
         { BRAF:
@@ -37,6 +67,16 @@ instead of an abstraction.
             }
         }
     }
+
+I'll include an actual example because I think that the data is the most
+interesting thing about my work, and it's cool to see it as it is in real life
+instead of an abstraction.  So `lung` is a cancer type, `BRAF` is a gene, and
+`TCGA-01` is just a barcode for a patient.  We generally have been getting data
+from the [TCGA Project](http://cancergenome.nih.gov/), which is why I put TCGA
+there.  And then there's the actual data - mutations (V is for Valine, 600 is
+for the protein location, though how does this work exactly since proteins are
+3D?, E is for another amino acid.  So this means a change from V to E at
+protein location 600.  Thanks [Hannah](https://files.nyu.edu/hfp209/public/)!)
 
 I took this and broke it up into a list for each gene and datatype.  So for
 BRAF I had a list of things like this,
@@ -86,7 +126,26 @@ actual code had some if statements that tested for data values: "AMPLIFIED",
 test for `Array` type in javascript since `typeof []` returns `"object"`,
 already you can see how this code is becoming "complected").  But in order to
 create that difference in space I would have to test for datatype for every
-piece of data and then add some more logic to calculating the x position.
+datum and then add some more logic to calculate the x position. Of course, I
+could have gotten this to work, but the beauty and simplicity of d3 was an
+inspiration to do better.  Who wants to use a beautiful tool to make something
+messy?
+
+I think the lesson here is that data structure is extremely important.  That
+decision to break up the data into essentially different layers, one for each
+data type, was not the right one, though it may be a good way of
+conceptualizing OncoPrints (as overlayed matrices).  The "unit" of the
+visualization is the sample (that is, a cancer patient's tumor sample) and so
+the unit of the data structure should also be a sample.  That's one of the
+things about d3 -- there should be a structural correspondence between the data
+and the visualization (and the DOM structure behind the scenes).
+
+So that's how a tiny problem -- a couple pixels not lining up correctly -- has
+some general implications for data visualization.
+
+
+
+
 
 I think it is that data structures are extremely important.  People certainly
 say this all the time, but this was one of those moments when I realized it for
@@ -101,83 +160,3 @@ contain whatever glyphs.
 
 Philosophically, I may as well make a few small points about this.
 
-Data is a list.
-
-One of the things that d3 teaches me is that data is a list.  What does this
-mean?
-
-1. You iterate over it
-2. There is some uniformity to it, i.e. and of course by list I mean a typed
-   list.  So I don't mean some list `[elephant, mars, chair]`.  I don't even
-   mean a list like this `[1, "higgly", "biggly"]`.  I mean a list of "structs"
-   with the same structure.  Like a bunch of integers, `[1,2,3, ...]`.  Or a
-   bunch of names `["Arabic poet", "Chinese poet", ...]`.  Or a bunch of
-   combinations of names and numbers `[{name: "Joseph", index: 10}, {name:
-   "Reuben", index:2}, ....]`
-
-What follows is a number of realizations that I hope will bring a smile to the
-face of the more experienced reader, as opposed to a sad shaking of the head,
-"Obviously!" She might say to herself.
-
-The structure of the data is of vital importance to the visualization.  The
-structure of the data is a reflection of how you choose to think about the
-data, to organize it, categorize it, break it off into little chunks.  Making
-these decisions are the core of the discipline and should not be taken lightly,
-nor should they be taken merely from an engineering or from a scientific point
-of view.  In fact, in this case, d3's engineering teaches you about your data,
-in other words, it has an effect on your scientific view of the data -- how you
-think about it.
-
-After watching a talk from Rich Hickey, I think that it may be fair to say that
-most data structures amount to lists and hashmaps.  Well, really what he is
-saying is that these are probably the most widely used and useful data
-structures out there.  There are many others.  What are the most effective ones
-for "data."  Well, aren't they all for data?  Then it depends on what you want
-to do with the data.
-
-What does it mean to think about data?  It means to think about how to break it
-up into different pieces, organize it, reorganize it, re-divide it and reform
-it.  To actually carry these actions out you need to have computer programming
-skills, especially if you are going to be dealing with "big data," defined by
-the lower bound of your computer's RAM, but I would say equally bounded below
-by common data applications like Excel which only has something on the order of
-10,000 rows (??).
-
-I've realized that a good portion of my work on the cBio Portal consists in
-creating such lists of uniformity.  This will amuse the more experienced
-reader, but I'll say it anyway: it seems like much of the work of data science
-is maintaining such a list of data.  I don't mean to demean it at all when I
-say that it is very much secretarial work -- organizing, codifying, etc.  It is
-from Richard Feyman's **Lectures on Computation** that reminds me of this
-analogy, and he was the first to point out that such considerations have lead
-to some interesting mathematics.
-
-This is leading to a post about **data science**.  Maybe I should combine them
-into one post -- d3 and data science.
-
-What I want to say about data science is that, though I think the name may be a
-bit far fetched (and I'd like to be able to just express my current opinions
-without insulting anyone) since I don't know if the word *science* should
-really be used here since I think that *science* should almost always refer to
-physical science, there really is something here, by which I mean that there
-seems to be a shared set of skills, maybe even a point of view on things, that
-spans across various disciplines and industries that involves knowing what to
-do with data.
-
-It was this meet up that got me thinking about this, when I realized that many
-of the same problems that we were running into at the lab are actually being
-experienced by people at NGOs and in industry around the world.  Science has
-been dealing with these issues for longer however, and so they think that they
-know what they're doing, but perhaps they are wrong.  Perhaps those old notions
-and techniques about data, how it should be collected, managed, and shared, are
-actually no longer applicable.
-
-In industry and probably at many NGOs (though the UN and others have been using
-statistics from the beginning...right?) people may be more open minded to the
-new techniques, but in science it really is quite difficult to get people to
-radically shift the way they are thinking about their work.
-
-Which leads to the other post about my thoughts regarding graduate school for
-myself, but also the state of biological science.
-
-## Post Title : Data : Long, Uniform Lists and how we create/maintain them (quote from Feynman)

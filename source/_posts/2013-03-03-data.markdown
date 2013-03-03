@@ -1,0 +1,94 @@
+---
+layout: post
+title: "data"
+date: 2013-03-03 17:26
+comments: true
+published: false
+categories: 
+---
+
+`
+
+
+
+
+Data is a list.
+
+One of the things that d3 teaches me is that data is a list.  What does this
+mean?
+
+1. You iterate over it
+2. There is some uniformity to it, i.e. and of course by list I mean a typed
+   list.  So I don't mean some list `[elephant, mars, chair]`.  I don't even
+   mean a list like this `[1, "higgly", "biggly"]`.  I mean a list of "structs"
+   with the same structure.  Like a bunch of integers, `[1,2,3, ...]`.  Or a
+   bunch of names `["Arabic poet", "Chinese poet", ...]`.  Or a bunch of
+   combinations of names and numbers `[{name: "Joseph", index: 10}, {name:
+   "Reuben", index:2}, ....]`
+
+What follows is a number of realizations that I hope will bring a smile to the
+face of the more experienced reader, as opposed to a sad shaking of the head,
+"Obviously!" She might say to herself.
+
+The structure of the data is of vital importance to the visualization.  The
+structure of the data is a reflection of how you choose to think about the
+data, to organize it, categorize it, break it off into little chunks.  Making
+these decisions are the core of the discipline and should not be taken lightly,
+nor should they be taken merely from an engineering or from a scientific point
+of view.  In fact, in this case, d3's engineering teaches you about your data,
+in other words, it has an effect on your scientific view of the data -- how you
+think about it.
+
+After watching a talk from Rich Hickey, I think that it may be fair to say that
+most data structures amount to lists and hashmaps.  Well, really what he is
+saying is that these are probably the most widely used and useful data
+structures out there.  There are many others.  What are the most effective ones
+for "data."  Well, aren't they all for data?  Then it depends on what you want
+to do with the data.
+
+What does it mean to think about data?  It means to think about how to break it
+up into different pieces, organize it, reorganize it, re-divide it and reform
+it.  To actually carry these actions out you need to have computer programming
+skills, especially if you are going to be dealing with "big data," defined by
+the lower bound of your computer's RAM, but I would say equally bounded below
+by common data applications like Excel which only has something on the order of
+10,000 rows (??).
+
+I've realized that a good portion of my work on the cBio Portal consists in
+creating such lists of uniformity.  This will amuse the more experienced
+reader, but I'll say it anyway: it seems like much of the work of data science
+is maintaining such a list of data.  I don't mean to demean it at all when I
+say that it is very much secretarial work -- organizing, codifying, etc.  It is
+from Richard Feyman's **Lectures on Computation** that reminds me of this
+analogy, and he was the first to point out that such considerations have lead
+to some interesting mathematics.
+
+This is leading to a post about **data science**.  Maybe I should combine them
+into one post -- d3 and data science.
+
+What I want to say about data science is that, though I think the name may be a
+bit far fetched (and I'd like to be able to just express my current opinions
+without insulting anyone) since I don't know if the word *science* should
+really be used here since I think that *science* should almost always refer to
+physical science, there really is something here, by which I mean that there
+seems to be a shared set of skills, maybe even a point of view on things, that
+spans across various disciplines and industries that involves knowing what to
+do with data.
+
+It was this meet up that got me thinking about this, when I realized that many
+of the same problems that we were running into at the lab are actually being
+experienced by people at NGOs and in industry around the world.  Science has
+been dealing with these issues for longer however, and so they think that they
+know what they're doing, but perhaps they are wrong.  Perhaps those old notions
+and techniques about data, how it should be collected, managed, and shared, are
+actually no longer applicable.
+
+In industry and probably at many NGOs (though the UN and others have been using
+statistics from the beginning...right?) people may be more open minded to the
+new techniques, but in science it really is quite difficult to get people to
+radically shift the way they are thinking about their work.
+
+Which leads to the other post about my thoughts regarding graduate school for
+myself, but also the state of biological science.
+
+## Post Title : Data : Long, Uniform Lists and how we create/maintain them (quote from Feynman)
