@@ -7,11 +7,6 @@ published: false
 categories: 
 ---
 
-`
-
-
-
-
 Data is a list.
 
 One of the things that d3 teaches me is that data is a list.  What does this

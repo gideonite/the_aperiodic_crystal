@@ -4,7 +4,7 @@ title: "Init: The Aperiodic Crystal"
 date: 2012-11-15 22:23
 comments: true
 published: true
-categories:
+categories: physics biology Schrödinger qm quantum mechanics whatislife? dna
 ---
 
 {% blockquote Erwin Schrödinger, What is life? %}
