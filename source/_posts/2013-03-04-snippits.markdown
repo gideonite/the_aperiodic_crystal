@@ -1,0 +1,23 @@
+---
+layout: post
+title: "snippits"
+date: 2013-03-04 00:36
+published: false
+comments: true
+categories: 
+---
+
+# from "Teachings of D3" post
+
+I think it is that data structures are extremely important.  People certainly
+say this all the time, but this was one of those moments when I realized it for
+myself and was happy. The visualization is not organized around datatype (copy
+number, mutation, etc), but rather around samples (or take the transpose of the
+matrix and consider it gene-wise, shouldn't matter).  Why fight the natural
+thing and try to draw it in layers?
+
+So the data structure should probably be as flat as possible and the rendered
+elements should use svg `<g>` elements that correspond to samples and which
+contain whatever glyphs.
+
+Philosophically, I may as well make a few small points about this.
