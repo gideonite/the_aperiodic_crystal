@@ -4,7 +4,7 @@
 
 url: http://gideond.com
 title: The Aperiodic Crystal
-#subtitle: my blog
+subtitle: programming, science, biology, mathematics, computer science, AI, ramblings
 author: Gideon Dresdner
 simple_search: http://google.com/search
 description:
@@ -35,6 +35,9 @@ code_dir: downloads/code
 category_dir: blog/categories
 markdown: rdiscount
 pygments: false # default python pygments have been replaced by pygments.rb
+
+rdiscount:
+    extensions: [ footnotes ]
 
 paginate: 10          # Posts per page on the blog index
 pagination_dir: blog  # Directory base for pagination URLs eg. /blog/page/2/
