@@ -21,5 +21,5 @@ Here are two photos from my climb up Mount Musala, Bulgaria in 2011. I'm the
 one in the orange shirt. Kudos to Lucas Schmidt for these photos, wherever he
 may be.
 
-![mussallah](mussallah.JPG)
-![friends](friends_in_bulgaria.jpg)
+![mussallah](/mussallah.JPG)
+![friends](/friends_in_bulgaria.jpg)
