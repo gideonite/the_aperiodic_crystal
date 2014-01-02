@@ -15,3 +15,6 @@ source/_posts
 *.jpg
 *.JPG
 *.png
+*.swp
+source
+.ruby-version
